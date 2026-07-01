@@ -2,7 +2,7 @@
 
 A no-limit hold'em game against up to 5 AI opponents, each with a distinct playing style, plus a live strategy-tracking HUD (VPIP, PFR, aggression factor, showdown rate) like real poker-tracking software.
 
-**[Play it live →](#)** *(replace with your GitHub Pages URL once deployed)*
+**[Play it live →](#)** *https://devmalaiyatx01-commits.github.io/pokerTracker/*
 
 ## How the opponents work
 
