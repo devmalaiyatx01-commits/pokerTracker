@@ -1,26 +1,38 @@
-# Heads Up — AI Poker Tracker
+# Heads Up: AI Poker Tracker
 
-A no-limit hold'em game against up to 5 AI opponents, each with a distinct playing style, plus a live strategy-tracking HUD (VPIP, PFR, aggression factor, showdown rate) like real poker-tracking software.
+No-limit hold'em against up to 5 AI opponents, each with its own playing style, plus a live HUD
+that tracks every opponent's tendencies the way poker-tracking software does.
 
-**[Play it live →](#)** *https://devmalaiyatx01-commits.github.io/pokerTracker/*
+Play it: https://devmalaiyatx01-commits.github.io/pokerTracker/
 
-## How the opponents work
+## How the opponents decide
 
-Each bot decides fold/call/raise through a small neural network: a hand-strength estimate (Chen formula preflop, Monte Carlo equity simulation postflop), pot odds, position, stack depth, and opponent count are combined through a weighted sum and squashed into three probabilities. The five personalities — Ice (tight-aggressive), Blitz (loose-aggressive), The Wall (tight-passive), Sponge (loose-passive), and GTO_9000 (balanced) — are the same network architecture with different hand-tuned weights.
+Each bot chooses fold, call or raise with a small model. Its inputs are a hand-strength estimate
+(the Chen formula before the flop, a Monte Carlo equity simulation after it), pot odds, position,
+stack depth and the number of opponents. A weighted sum of these goes through a softmax to give
+three probabilities.
 
-## Strategy tracker
+The five personalities use the same model with different hand-tuned weights:
 
-The right-hand panel reads back each opponent's tendencies the way tools like PokerTracker or Hold'em Manager do:
-- **VPIP** — % of hands voluntarily played
-- **PFR** — % of hands raised preflop
-- **AF** — aggression factor (bets/raises vs. calls postflop)
-- **WTSD** — % of hands taken to showdown
-- A plain-English auto-generated read on each opponent's style
+| Bot | Style |
+|---|---|
+| Ice | tight-aggressive |
+| Blitz | loose-aggressive |
+| The Wall | tight-passive |
+| Sponge | loose-passive |
+| GTO_9000 | balanced |
 
-## Tech
+## The HUD
 
-Single self-contained HTML/CSS/JS file, no build step, no dependencies. Hand evaluation and side-pot math are covered by a small test suite (see commit history / ask for `test.js`).
+The side panel reads each opponent's tendencies from the hands played so far:
 
-## Run locally
+* **VPIP**: share of hands where they voluntarily put money in
+* **PFR**: share of hands they raised before the flop
+* **AF**: aggression factor, bets and raises divided by calls after the flop
+* **WTSD**: share of hands they took to showdown
 
-Just open `index.html` in a browser.
+It also writes a plain-English read of each opponent's style.
+
+## Run it
+
+One self-contained HTML file with no build step and no dependencies: open `index.html` in a browser.
